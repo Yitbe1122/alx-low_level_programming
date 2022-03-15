@@ -1,37 +1,47 @@
 #include "main.h"
 
 /**
- * print_times_table - Print the n times table, starting from 0
- * @n: The times table to print
+ * print_times_table - prints nx times table
+ * @n: value of how large the times table should be
  *
- * Return: Nothing
+ * Return: void
  */
 void print_times_table(int n)
 {
-	int x, y, mult, one, ten, hund;
-
-	x = 0;
-	if (n >= 0 && n <= 15)
+	if (n < 16 && n > -1)
 	{
-		while (x <= n)
+		int column, row, sum, h, t, o;
+
+		column = 0;
+		while (column <= n)
 		{
-			y = 0;
-			while (y <= n)
+			_putchar('0');
+			row = 1;
+			while (row <= n)
 			{
-				mult = x * y;
-				one = mult % 10;
-				ten = mult % 100 / 10;
-				hund = mult / 100;
-				if (hund == 0 && y != 0)
+				sum = column * row;
+				h = sum / 100, t = sum / 10 % 10, o = sum % 10;
+				_putchar(',');
+				_putchar(' ');
+				if (sum > 99)
+				{
+					_putchar(h + '0');
+					_putchar(t + '0');
+					_putchar(o + '0');
+				}
+				else if (sum < 10)
 				{
 					_putchar(' ');
-					if (ten == 0)
-						_putchar(' ');
-					else
-						_putchar(ten + '0');
+					_putchar(' ');
+					_putchar(o + '0');
 				}
-				else if (hund != 0)
+				else
 				{
-					_putchar(hund + '0');
-					_putchar(ten + '0');
+					_putchar(' ');
+					_putchar(t + '0');
+					_putchar(o + '0');
+				}
+				row++;
+			}
+			_putchar('\n');
 
