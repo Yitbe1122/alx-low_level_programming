@@ -1,19 +1,29 @@
 #include "main.h"
 
 /**
- * puts2 - prints every other character of a  string to stdout
- * @str: string to print
+ * puts2 - prints multiples of two.
+ * @str: first parameter
  *
  * Return: void
  */
 void puts2(char *str)
 {
-	int i = 0;
+	int i, len, start;
 
-	while (*(str + i))
+	len = 0;
+
+	for (i = 0; str[i] != '\0'; ++i)
 	{
-		_putchar(*(str + i));
-		i = i + 2;
+		len = i;
 	}
+
+	for (start = 0; start <= len; start++)
+	{
+		if (start % 2 == 0)
+			_putchar(str[start]);
+		else
+			continue;
+	}
+
 	_putchar('\n');
 }
