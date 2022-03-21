@@ -1,42 +1,48 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <main.h>
-
+#include <time.h>
 /**
- * main - random password generator for 101-crackme
+ * checksum - executes checksum
+ * @s: input char
+ * Return: checksum
+ */
+unsigned long checksum(char *s)
+{
+unsigned long sum = 0;
+while (*s != 0)
+{
+	sum += *s;
+	s++;
+}
+return (sum);
+}
+/**
+ * main - prints password for crakme
  *
- * Return: always 0
+ * Return: Always 0.
  */
 int main(void)
 {
-	int i, j, k, s;
-	char c[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char p[58];
+	char alpha[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQSTUVWXYZ";
+	char s[33];
+	unsigned long sum;
+	int i, flag = 0;
 
 	srand(time(NULL));
-	while (s != 2772)
+	while (flag == 0)
 	{
-		i = k = s = 0;
-		while ((2772 - 122) > s)
+		for (i = 0; i < 33; i++)
 		{
-			j = rand() % 62;
-			p[i] = c[j];
-			s += c[j];
-			i++;
+			s[i] = alpha[rand() % (sizeof(alpha) - 1)];
 		}
-		while (c[k])
+		s[i] = '\0';
+		sum = checksum(s);
+		if (sum == 2772)
 		{
-			if (c[k] == (2772 - s))
-			{
-				p[i] = c[k];
-				s += c[k];
-				i++;
-				break;
-			}
-			k++;
+			flag = 1;
+			printf("%s", s);
 		}
 	}
-	p[i] = '\0';
-	printf("%s", p);
-	return (0);
+return (0);
 }
