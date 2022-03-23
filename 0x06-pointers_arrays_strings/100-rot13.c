@@ -1,25 +1,29 @@
 #include "main.h"
-
-/*
- * Magic number.
+/**
+ * rot13 - rot13 encoding
+ * Return: pointer to arr
+ * @s: string
  */
+char *rot13(char *s)
+{
+	char half1[] = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 
-#define ROT13_MODIFIER 13
+	char half2[] = "nNoOpPqQrRsStTuUvVwWxXyYzZaAbBcCdDeEfFgGhHiIjJkKlLmM";
 
-/*
- * Rotate the given `str` inline.
- */
+	int i = 0, j;
 
-char *rot13(char *str) {
-  for (int i = 0; '\0' != str[i]; i++) {
-    char c = *(str + i);
-    if (('a' <= c && 'n' > c) || ('A' <= c && 'N' > c)) {
-      // a-m
-      *(str + i) += ROT13_MODIFIER;
-    } else if (('n' <= c && 'z' >= c) || ('N' <= c && 'Z' >= c)) {
-      // n-z
-      *(str + i) -= ROT13_MODIFIER;
-    }
-  }
-  return str;
+	while (s[i] != 0)
+	{
+		char c = s[i];
+
+		for (j = 0; j < 52; j++)
+		{
+			if (c == half1[j])
+			{
+				s[i] = half2[j];
+			}
+		}
+		i++;
+	}
+	return (s);
 }
