@@ -22,7 +22,8 @@ void print_number(int n)
 		size = size / 10;
 		digits++;
 	}
-for (i = 0; i < digits; i++)
+
+	for (i = 0; i < digits; i++)
 	{
 
 		int pow = 1;
