@@ -1,4 +1,4 @@
-#include "rot13.h"
+#include "main.h"
 
 /*
  * Magic number.
