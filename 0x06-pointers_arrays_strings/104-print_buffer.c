@@ -1,61 +1,53 @@
-#include "main.h"
 #include <stdio.h>
 
 /**
- * print_line - prints a s bytes of a buffer
- * @c: buffer to print
- * @s: bytes of buffer to print
- * @l: line of buffer to print
+ * print_buffer - print a buffer 10 bytes at a time, displaying the line
+ * number in hex and byte pairs in hex
  *
- * Return: void
- */
-
-void print_line(char *c, int s, int l)
-{
-	int j, k;
-
-	for (j = 0; j <= 9; j++)
-	{
-		if (j <= s)
-			printf("%02x", c[l * 10 + j]);
-		else
-			printf("  ");
-		if (j % 2)
-			putchar(' ');
-	}
-	for (k = 0; k <= s; k++)
-	{
-		if (c[l * 10 + k] > 31 && c[l * 10 + k] < 127)
-			putchar(c[l * 10 + k]);
-		else
-			putchar('.');
-	}
-}
-
-/**
- * print_buffer - prints a buffer
- * @b: buffer to print
+ * @b: string to print from
  * @size: size of buffer
  *
  * Return: void
  */
 void print_buffer(char *b, int size)
 {
-	int i;
+	int i, counter = 0, size2 = size;
+	char *ptr = b;
 
-	for (i = 0; i <= (size - 1) / 10 && size; i++)
-	{
-		printf("%08x: ", i * 10);
-		if (i < size / 10)
-		{
-			print_line(b, 9, i);
-		}
-		else
-		{
-			print_line(b, size % 10 - 1, i);
-		}
-		putchar('\n');
-	}
 	if (size == 0)
-		putchar('\n');
+		printf("\n");
+	while (size > 0)
+	{
+		printf("%08x:", counter);
+		i = 0;
+		while (size > 0 && i < 10)
+		{
+			if (!(i % 2))
+				printf(" ");
+			printf("%02x", *ptr++);
+			i++;
+			size--;
+			counter++;
+		}
+		while (counter % 10 != 0)
+		{
+			if (!(counter % 2))
+				printf(" ");
+			printf("  ");
+			counter++;
+		}
+		printf(" ");
+		i = 0;
+		while (size2 > 0 && i < 10)
+		{
+			if (*b > 31 && *b != 127)
+				printf("%c", *b);
+			else
+				printf(".");
+			size2--;
+			i++;
+			b++;
+		}
+		printf("\n");
+	}
 } 
