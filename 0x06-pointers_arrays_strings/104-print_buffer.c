@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <main.h>
 
 /**
  * print_buffer - print a buffer 10 bytes at a time, displaying the line
@@ -51,4 +50,4 @@ void print_buffer(char *b, int size)
 		}
 		printf("\n");
 	}
-} 
+}
