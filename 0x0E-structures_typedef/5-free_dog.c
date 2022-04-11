@@ -1,17 +1,16 @@
 #include "dog.h"
-
+#include <stdlib.h>
 /**
- * free_dog - free a dog
- * @d: a pointer to the dog to free
+ * free_dog - frees a dog strut
+ * @d:  struct dog to be initialized
  *
- * Return: void
  */
-void free_dog(dog_t *d)
+
+void free_dog(struct dog *d)
 {
-	if (d)
-	{
-		free(d->name);
-		free(d->owner);
-		free(d);
-	}
+	if (d == NULL)
+		return;
+	free(d->name);
+	free(d->owner);
+	free(d);
 }
