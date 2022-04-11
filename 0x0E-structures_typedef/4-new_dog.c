@@ -1,76 +1,70 @@
 #include "dog.h"
+#include <stdlib.h>
 
 /**
- * _strdup - create a new array containing a copy of the given string
- * @str: a pointer to the string to copy
+ * _strlen - returns the length of a string
+ * @s: string we find the length of
  *
- * Return: NULL if str is NULL or if memory allocation fails,
- * otherwise a return a pointer to the new copy
+ * Return: length of the string
  */
-char *_strdup(char *str)
+
+int _strlen(char *s)
 {
-	char *dup;
-	unsigned int size = 0;
+	int x = 0;
 
-	if (str)
-	{
-		while (str[size++])
-			;
-
-		dup = malloc(sizeof(char) * size);
-		if (dup)
-		{
-			while (size--)
-				dup[size] = str[size];
-
-			return (dup);
-		}
-	}
-	return (NULL);
+	while (*(s + x) != '\0')
+		x++;
+	return (x);
 }
 
 /**
- * new_dog - create a new dog
- * @name: the new dog's name
- * @age: the new dog's age
- * @owner: the new dog's owner
+ * new_dog - creates  a new dog
+ * @name: name of dog
+ * @age: age of dog
+ * @owner: name of dog's owner
  *
- * Return: a pointer to the new dog, or NULL if memory allocation fails
+ * Return: returns a new dog struct. NULL on failure
  */
+
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *d;
+	dog_t *new_dog;
+	int x;
+	char *n, *o;
 
-	d = malloc(sizeof(dog_t));
-	if (!d)
+	if (name == NULL || owner == NULL)
 		return (NULL);
 
-	if (name)
+	/* memory allocation for pointers */
+	new_dog = malloc(sizeof(dog_t));
+	if (new_dog == NULL)
+		return (NULL);
+	n = malloc(sizeof(char) * (_strlen(name) + 1));
+	if (n  == NULL)
 	{
-		d->name = _strdup(name);
-		if (!(d->name))
-		{
-			free(d);
-			return (NULL);
-		}
+		free(new_dog);
+		return (NULL);
 	}
-	else
-		d->name = NULL;
-
-	d->age = age;
-
-	if (owner)
+	o = malloc(sizeof(char) * (_strlen(owner) + 1));
+	if (o == NULL)
 	{
-		d->owner = _strdup(owner);
-		if (!(d->owner))
-		{
-			free(d->name);
-			free(d);
-			return (NULL);
-		}
+		free(n);
+		free(new_dog);
+		return (NULL);
 	}
-	else
-		d->owner = NULL;
 
-	return (d);
+	/* copy string arguments into new variables */
+	for (x = 0; name[x] != '\0'; x++)
+		n[x] = name[x];
+	n[x] = '\0';
+	for (x = 0; owner[x] != '\0'; x++)
+		o[x] = owner[x];
+	o[x] = '\0';
+
+	/*initializing new dog */
+	new_dog->name = n;
+	new_dog->age = age;
+	new_dog->owner = o;
+
+	return (new_dog);
 }
